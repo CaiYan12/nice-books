@@ -10,7 +10,8 @@
 		"test:nice-books": "node --import ./scripts/test-hooks.mjs --test \"src/nice-books/**/*.test.ts\"",
 		"build": "pnpm test:nice-books && astro build",
 		"preview": "astro preview",
-		"smoke:nice-books": "node scripts/nice-books-smoke.mjs"
+		"smoke:nice-books": "node scripts/nice-books-smoke.mjs",
+		"verify:pages-artifact": "node scripts/verify-pages-artifact.mjs"
 	},
 	"dependencies": {
 		"@astrojs/check": "0.9.12",

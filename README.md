@@ -42,3 +42,5 @@ pnpm smoke:nice-books
 - 头像图标由 `public/images/avatar.webp` 提供；思源黑体与 JetBrains Mono 由项目依赖提供。书宋和摘抄手写字体沿用页面中的现有字体服务地址。
 
 迁移验收进度和 T1 证据见 [`docs/migration-acceptance.md`](docs/migration-acceptance.md)。
+
+Pages 发布配置、建仓与首次部署操作见 [docs/pages-deployment.md](docs/pages-deployment.md)；T3 验收记录见 [docs/t3-acceptance.md](docs/t3-acceptance.md)。

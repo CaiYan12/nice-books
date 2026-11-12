@@ -10,7 +10,12 @@
 		"test:nice-books": "node --import ./scripts/test-hooks.mjs --test \"src/nice-books/**/*.test.ts\"",
 		"build": "pnpm test:nice-books && astro build",
 		"preview": "astro preview",
-		"smoke:nice-books": "node scripts/nice-books-smoke.mjs"
+		"smoke:nice-books": "node scripts/nice-books-smoke.mjs",
+		"qa:nice-books-404": "node scripts/nice-books-404-qa.mjs",
+		"qa:nice-books-design": "node scripts/nice-books-design-qa.mjs",
+		"qa:nice-books-geometry": "node scripts/nice-books-geometry-qa.mjs",
+		"qa:nice-books-dev-swup": "node scripts/nice-books-dev-swup-qa.mjs",
+		"capture:nice-books-baseline": "node scripts/nice-books-capture-baseline.mjs"
 	},
 	"dependencies": {
 		"@astrojs/check": "0.9.12",

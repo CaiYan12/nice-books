@@ -1,0 +1,68 @@
+---
+import SiteHead from "../nice-books/components/SiteHead.astro";
+import SiteHeader from "../nice-books/components/SiteHeader.astro";
+import SiteFooter from "../nice-books/components/SiteFooter.astro";
+import { sitePath } from "../config";
+
+const actionClass =
+	"nb-archive-action inline-flex min-h-11 items-center justify-center rounded-[3px] border border-nb-border-strong bg-nb-surface px-5 py-2 text-[13.5px] text-nb-ink transition-[border-color,background,transform,color,box-shadow] duration-[160ms] hover:-translate-y-px hover:border-nb-seal hover:bg-[rgba(168,67,60,0.06)] hover:text-nb-seal hover:shadow-[3px_5px_0_rgba(168,67,60,0.12)] active:translate-y-0";
+---
+
+<!doctype html>
+<html lang="zh-CN">
+	<head>
+		<SiteHead
+			title="页面没有找到 · Nice Books 每日好书"
+			description="这个地址没有对应的 Nice Books 页面。可以回到今日好书，或打开书库继续浏览。"
+			robots="noindex,follow"
+		/>
+	</head>
+	<body class="nb-page font-nb-body text-[15.5px] leading-[1.85] text-nb-ink">
+		<SiteHeader active={null} />
+		<main
+			id="nb-books-main"
+			class="transition-swup-fade mx-auto flex min-h-[50vh] w-full max-w-[1080px] flex-col items-center justify-center px-6 py-16 text-center max-[540px]:px-4"
+			data-pagefind-ignore="all"
+			data-nb-not-found
+		>
+			<section class="max-w-[38em]" aria-labelledby="nb-not-found-title">
+				<p
+					class="font-nb-mono text-[13px] tracking-[3px] text-nb-seal"
+					aria-hidden="true"
+				>
+					404 · NOT FOUND
+				</p>
+				<h1
+					id="nb-not-found-title"
+					class="mt-3 font-nb-serif text-[28px] font-bold tracking-[1px] max-[540px]:text-[23px]"
+				>
+					页面没有找到
+				</h1>
+				<p class="mt-3 text-[14px] leading-[1.9] text-nb-muted">
+					这个地址没有对应的 Nice Books 页面。回到今日好书，或打开书库继续浏览。
+				</p>
+				<nav
+					class="mt-7 flex flex-wrap justify-center gap-3"
+					aria-label="继续浏览"
+				>
+					<a
+						href={sitePath("")}
+						class={actionClass}
+						data-nb-404-home
+						>今日好书</a
+					>
+					<a
+						href={sitePath("archive/")}
+						class={actionClass}
+						data-nb-404-archive
+						>书库</a
+					>
+				</nav>
+			</section>
+		</main>
+		<SiteFooter />
+		<script>
+			import "../nice-books/scripts/main";
+		</script>
+	</body>
+</html>

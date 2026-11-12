@@ -34,9 +34,10 @@ export function syncHeaderNav(): void {
 	const projectPath = path.startsWith(`${siteConfig.basePath}/`)
 		? path.slice(siteConfig.basePath.length + 1)
 		: null;
-	// 详情页归入「书库」高亮分支；项目路径之外不高亮。
-	const current =
-		projectPath === ""
+	// 详情页归入「书库」高亮分支；项目路径之外及独立 404 不高亮。
+	const current = document.querySelector("[data-nb-not-found]")
+		? null
+		: projectPath === ""
 			? "home"
 			: projectPath === "archive/" || /^\d+\/?$/.test(projectPath ?? "")
 				? "archive"

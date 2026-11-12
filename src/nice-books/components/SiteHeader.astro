@@ -9,7 +9,7 @@ import { NAV_ACTIVE, NAV_BASE, NAV_IDLE } from "../scripts/shared";
 import { sitePath, siteConfig } from "../../config";
 
 interface Props {
-	active: "home" | "archive";
+	active: "home" | "archive" | null;
 }
 const { active } = Astro.props;
 
@@ -56,9 +56,11 @@ const links: {
 					links.map((link) => (
 						<a
 							href={link.href}
-							class={`${NAV_BASE} ${link.key === active ? NAV_ACTIVE : NAV_IDLE}`}
+							class={`${NAV_BASE} ${link.key !== null && link.key === active ? NAV_ACTIVE : NAV_IDLE}`}
 							aria-current={
-								link.key === active ? "page" : undefined
+								link.key !== null && link.key === active
+									? "page"
+									: undefined
 							}
 							data-nb-nav={link.key ?? "external"}
 							data-no-swup={link.noSwup ? "" : undefined}

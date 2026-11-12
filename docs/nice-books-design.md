@@ -1,6 +1,6 @@
 # Nice Books · 私人藏书桌
 
-2026-09-07 已批准设计方向。本说明来自博客迁移前的设计约定；原始记录保留在[源仓库历史索引](https://github.com/CaiYan12/caiyan12.github.io/blob/550c3da9d0808cf3d55f8c2aa53b8b29fc520e19/docs/history/history.md)。本说明替代原型 handoff §5–§8 的固定视觉参数及旧克制动效限制，不替代数据、路由和独立壳契约。
+2026-09-07 已批准设计方向。本说明是独立项目当前的视觉与交互约定；路由与书目维护见 [README.md](../README.md)，迁移范围与验收边界见 [migration-acceptance.md](migration-acceptance.md)。博客迁移前的原始记录保留在[源仓库历史索引](https://github.com/CaiYan12/caiyan12.github.io/blob/550c3da9d0808cf3d55f8c2aa53b8b29fc520e19/docs/history/history.md)。
 
 ## 三层设计语言
 
@@ -10,7 +10,7 @@
 
 ## 字体与组件
 
-正文使用现有思源黑体，标题及封面使用书宋，荐语/摘抄使用短手写文字，编号使用等宽字体。所有基础值收敛在 `--nb-*` token，Tailwind CSS 版本为 4.3.4，继续使用既有 `nb-*` 色板与字体 utility 命名（例如 `text-nb-ink`、`font-nb-serif`）。辅助文字至少13px，实际背景上的文字对比度至少4.5:1。可交互元素提供可见焦点与足够触摸区域。**适用域**：上述尺寸与对比度契约只约束**承载可读信息的文字**。`aria-hidden="true"` 且不传达任何可读内容的**装饰字形**不受 13px 下限约束——现有实例是 `src/pages/index.astro` 里两处 `span.text-[0.85em].text-nb-seal`（`✦` 与 `*`，位于 14px 段落中，计算值 11.9px）。豁免边界要盯紧两点：`text-nb-seal` 也被用在藏书编号 `No.${id}` 上（`src/nice-books/lib/render.ts`），那是**真内容，不豁免**；反向地，`SiteHeader`/`SiteFooter` 品牌名前的 `✦` 是 `text-[15px]`，本来就达标，无需援引本条。判断依据始终是「这个字形是否承载可读信息」，而不是它用了哪个类名。
+正文使用现有思源黑体，标题及封面使用书宋，荐语/摘抄使用短手写文字，编号使用等宽字体。所有基础值收敛在 `--nb-*` token；荐语和摘抄共用暖墨色 `--nb-ink-warm`，摘抄署名使用 `--nb-ink-warm-soft`，荐语标题使用 `--nb-note-label`。Tailwind CSS 版本为 4.3.4，继续使用既有 `nb-*` 色板与字体 utility 命名（例如 `text-nb-ink`、`font-nb-serif`）。辅助文字至少13px，实际背景上的文字对比度至少4.5:1。可交互元素提供可见焦点与足够触摸区域。**适用域**：上述尺寸与对比度契约只约束**承载可读信息的文字**。`aria-hidden="true"` 且不传达任何可读内容的**装饰字形**不受 13px 下限约束——现有实例是 `src/pages/index.astro` 里两处 `span.text-[0.85em].text-nb-seal`（`✦` 与 `*`，位于 14px 段落中，计算值 11.9px）。豁免边界要盯紧两点：`text-nb-seal` 也被用在藏书编号 `No.${id}` 上（`src/nice-books/lib/render.ts`），那是**真内容，不豁免**；反向地，`SiteHeader`/`SiteFooter` 品牌名前的 `✦` 是 `text-[15px]`，本来就达标，无需援引本条。判断依据始终是「这个字形是否承载可读信息」，而不是它用了哪个类名。
 
 四类封面使用独立展示配置按 ID 确定，不增加 Book 领域字段：文学以字为主；历史人文使用档案标签和结构线；科幻科普使用几何轨迹；散文随笔使用留白与抽象地景。无配置时回退文学。真实封面完整显示，加载失败仍生成同一书籍的 SVG。腰封仅使用真实现有荐语，不添加销售、获奖或阅读频率断言。
 

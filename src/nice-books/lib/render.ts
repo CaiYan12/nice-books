@@ -8,18 +8,14 @@
  */
 
 import { coverShellColor, generateCoverSvg } from "./cover";
+import { escapeMarkup } from "./escape-markup";
 import { geometryStyle, type CoverDisplayVariant } from "./book-geometry";
 import { bookHref, formatAuthors, formatMetaLine, tagHref } from "./format";
 import type { Book } from "../types";
 import { sitePath } from "../../config";
 
 export function esc(s: string): string {
-	return String(s ?? "")
-		.replace(/&/g, "&amp;")
-		.replace(/</g, "&lt;")
-		.replace(/>/g, "&gt;")
-		.replace(/"/g, "&quot;")
-		.replace(/'/g, "&#39;");
+	return escapeMarkup(s);
 }
 
 /** 书封外壳：统一坐标系中的硬壳、页块、书脊与可选腰封。 */
@@ -65,7 +61,7 @@ export function coverHTML(
 
 export type TagPillVariant = "link" | "button" | "static";
 
-/** 标签药丸（handoff §4 TagFilter：选中墨色反白，非蓝底高亮） */
+/** 标签药丸：选中墨色反白，非蓝底高亮。 */
 export function tagPillHTML(
 	tag: string,
 	opts?: { variant?: TagPillVariant; small?: boolean; on?: boolean },
@@ -102,8 +98,8 @@ export function noteHTML(
 		stamp +
 		(opts?.showLabel === false
 			? ""
-			: `<span class="nb-note-label mb-1.5 block text-[13px] tracking-[2px] text-[#6f5a35]">站长荐语</span>`) +
-		`<p class="font-nb-kai text-[15.5px] leading-[2] text-[#4a3f2c]">${esc(book.recommendationReason)}</p>` +
+			: `<span class="nb-note-label mb-1.5 block text-[13px] tracking-[2px] text-nb-note-label">站长荐语</span>`) +
+		`<p class="font-nb-kai text-[15.5px] leading-[2] text-nb-ink-warm">${esc(book.recommendationReason)}</p>` +
 		`</aside>`
 	);
 }

@@ -1,5 +1,13 @@
 # Changelog
 
+## 2026-11-12：收敛审查发现并复验独立项目
+
+- `src/nice-books/lib/render.ts` 与 `src/nice-books/styles/books.css` 将荐语和摘抄颜色统一到 `--nb-note-label`、`--nb-ink-warm`、`--nb-ink-warm-soft`；实测计算色仍为 `#6f5a35`、`#4a3f2c`、`#655a4a`，未调整布局值。
+- 从 `tailwind.config.cjs` 移除未被 `src/` 使用的博客色板、通用 sans/mono 字体覆盖、wrapper/box 样式和 typography 插件；移除直接依赖及其独占锁条目。保留 `nb-*` 字色/字体映射。首个带 `--ignore-scripts` 的 `pnpm remove` 退出非零，重试后虽成功但产生了无关锁解析改写；该结果已舍弃，最终锁 diff 只删 typography 与其独占解析项，保留依赖版本未变。
+- 新增 `src/nice-books/lib/escape-markup.ts` 共享字符串转义，`render.ts` 继续导出原 `esc` API；新增一项 XSS/空值兼容断言。独立审查范围与对照证据见 [`docs/review-acceptance.md`](docs/review-acceptance.md)。
+- 验证（2026-11-12，Windows，Node.js 24.18.0 / pnpm 10.26.2）：冻结安装、检查、52 项单测、73 页构建与 Pages 产物校验均通过；预览浏览器 smoke 72/72、设计 67/67、几何 1507/1507、404 25/25 全部通过。受控对照 6/6 几何矩形、字体状态和页面错误数一致；archive 两张截图 hash 相同，其余四张 hash 有差异，且重复 after 截图也存在变化，因此不宣称截图逐像素一致。具体日志在本地忽略目录 `output/nice-books-migration/review-fixes/` 与 `review-fixes-qa/`。
+- 此次只做本地审查整改，没有 push、PR 或部署。
+
 ## 2026-11-12：完成独立 404 与迁移体验验收（T2）
 
 - 新增独立 Nice Books 404 页面；无效路径和无效书籍编号返回 404，页面复用站内页眉、页脚与样式，并提供“今日好书”和“书库”两个入口。404 使用 `noindex,follow`、不输出 canonical，且不高亮任何页面导航。

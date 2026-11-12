@@ -4,12 +4,12 @@ Nice Books 是独立构建的静态 Astro 项目。公开根路径为 `/nice-boo
 
 ## 路由
 
-| 页面         | 地址                    |
-| ------------ | ----------------------- |
-| 今日好书     | `/nice-books/`          |
-| 书库         | `/nice-books/archive/`  |
-| 书籍详情     | `/nice-books/<id>/`     |
-| 书目数据     | `/nice-books/data.json` |
+| 页面          | 地址                    |
+| ------------- | ----------------------- |
+| 今日好书      | `/nice-books/`          |
+| 书库          | `/nice-books/archive/`  |
+| 书籍详情      | `/nice-books/<id>/`     |
+| 书目数据      | `/nice-books/data.json` |
 | 错误路径/编号 | 返回独立 404 页面       |
 
 ## 本地运行与验证
@@ -51,6 +51,8 @@ pnpm capture:nice-books-baseline
 ```
 
 `capture:nice-books-baseline` 固定浏览器随机种子 `0x00c0ffee`，记录字体加载结果、页面几何和六张桌面/手机首屏截图；目标结果写入 `output/nice-books-migration/t2/ab/`。迁移前对照基线与本轮验收结果见 [`docs/migration-acceptance.md`](docs/migration-acceptance.md)。
+
+独立项目的审查整改与本地 CSS/字体对照结果见 [`docs/review-acceptance.md`](docs/review-acceptance.md)。
 
 开发服务器另用一个终端运行 `pnpm dev -- --port 4324`，然后在验收终端设置 `NICE_BOOKS_BASE_URL='http://localhost:4324/nice-books/'` 并执行 `pnpm qa:nice-books-dev-swup`，检查 dev 下的 Swup 切页、公共样式与后退恢复。
 

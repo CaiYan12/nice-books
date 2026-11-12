@@ -1,4 +1,4 @@
-// SVG 书封生成单测：确定性、比例、竖排/横排分支（handoff §12.3）。
+// SVG 书封生成单测：确定性、比例、竖排/横排分支。
 import test from "node:test";
 import assert from "node:assert/strict";
 import { generateCoverSvg } from "./cover";

@@ -4,6 +4,7 @@ import { books } from "../data/books";
 import {
 	bookCardHTML,
 	coverHTML,
+	esc,
 	heroCardHTML,
 	listRowHTML,
 	noteHTML,
@@ -137,6 +138,21 @@ test("荐语标题可在详情页关闭，首页默认显示", () => {
 	assert.match(heroCardHTML(book), /nb-hero-book/);
 	assert.match(heroCardHTML(book), /nb-hero-copy/);
 	assert.match(listRowHTML(book), /group nb-book-list-row/);
+});
+
+test("荐语渲染转义 HTML 特殊字符，esc 保留空值兼容行为", () => {
+	const book = {
+		...books[0]!,
+		recommendationReason: `<img src=x onerror="alert('x')"> &lt;`,
+	};
+	const html = noteHTML(book);
+	assert.ok(
+		html.includes(
+			"&lt;img src=x onerror=&quot;alert(&#39;x&#39;)&quot;&gt; &amp;lt;",
+		),
+	);
+	assert.doesNotMatch(html, /<img src=x/);
+	assert.equal(esc(null as unknown as string), "");
 });
 
 test("标签筛选按钮暴露 aria-pressed 选中状态", () => {

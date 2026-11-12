@@ -1,6 +1,7 @@
 /** Nice Books 确定性程序书封：四个独立构图族，不修改 Book 领域模型。 */
 import type { Book } from "../types";
 import { coverFamilyForId, type CoverFamily } from "./display";
+import { escapeMarkup as escapeXml } from "./escape-markup";
 
 export { COVER_FAMILY_BY_ID, coverFamilyForId } from "./display";
 export type { CoverFamily } from "./display";
@@ -24,15 +25,6 @@ const PALETTES: Record<CoverFamily, readonly Palette[]> = {
 		{ bg: "#c8d0c0", fg: "#26332d", accent: "#8b4b3f", line: "#829481" },
 	],
 };
-
-function escapeXml(s: string): string {
-	return String(s ?? "")
-		.replace(/&/g, "&amp;")
-		.replace(/</g, "&lt;")
-		.replace(/>/g, "&gt;")
-		.replace(/"/g, "&quot;")
-		.replace(/'/g, "&#39;");
-}
 
 function paletteFor(book: Book): Palette {
 	const idNumber = Math.abs(Number.parseInt(book.id, 10) || 0);

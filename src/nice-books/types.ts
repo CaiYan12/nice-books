@@ -1,4 +1,4 @@
-/** Nice Books 书籍领域类型（契约字段，与 design-handoff.md §12.1 一致；禁加 rating/review/price/user 等字段） */
+/** Nice Books 书籍领域类型；沿用 README.md 维护约定中的字段结构，禁加 rating/review/price/user 等字段。 */
 
 export interface FirstEdition {
 	year: number;

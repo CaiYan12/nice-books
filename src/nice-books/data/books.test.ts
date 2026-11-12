@@ -1,4 +1,4 @@
-// books 数据集契约校验（handoff §12 + 主提示词 §12/§43/§44）。
+// books 数据集契约校验。
 import test from "node:test";
 import assert from "node:assert/strict";
 import {

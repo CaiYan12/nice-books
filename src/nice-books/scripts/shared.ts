@@ -159,7 +159,7 @@ export function bindShuffle(
 }
 
 /**
- * 封面加载失败兜底（契约 handoff §12.3）：捕获阶段监听 img error，
+ * 封面加载失败兜底（docs/nice-books-design.md「字体与组件」）：捕获阶段监听 img error，
  * 依据 data-nb-* 属性重新生成确定性 SVG 替换。document 级监听只在
  * 模块顶层注册（本模块被页面脚本导入一次即注册一次）。
  */

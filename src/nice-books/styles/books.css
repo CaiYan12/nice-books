@@ -5,14 +5,14 @@
  * 分工：
  *  - 常规布局/排版 → 组件标记里的 Tailwind utility（nb-* 色板 / 任意值）
  *  - 伪元素装饰、keyframes、SVG 内部选择器、swup 过渡 → 本文件
- * 页面壳不加载博客 global.css，本文件是 books 页面唯一样式源。
+ * 页面壳只加载本项目样式入口，本文件是 books 页面唯一样式源；博客全局样式不会进入独立项目。
  * ============================================================ */
 
 @import "tailwindcss";
 @config "../../../tailwind.config.cjs";
 @source "../../../src/**/*.{astro,html,js,jsx,md,mdx,svelte,ts,tsx,vue,mjs}";
 
-/* ---------- Design Tokens（handoff §5）---------- */
+/* ---------- Design Tokens（docs/nice-books-design.md）---------- */
 :root {
   --nb-paper: #f5f0e4; /* 页面底（暖米纸） */
   --nb-surface: #fcf9f0; /* 卡片/输入框底 */
@@ -24,6 +24,9 @@
   --nb-blue: #3a6ea5; /* 老网页蓝：链接、focus 环 */
   --nb-seal: #a8433c; /* 印章红 */
   --nb-kraft: #8a5a33;
+  --nb-note-label: #6f5a35;
+  --nb-ink-warm: #4a3f2c;
+  --nb-ink-warm-soft: #655a4a;
   --nb-border: #ddd2ba;
   --nb-border-strong: #b9ac8e;
 
@@ -55,7 +58,7 @@
   background: rgba(168, 67, 60, 0.22);
 }
 
-/* 焦点环。这条规则**必须留在 @layer base 里**，与 global.css 里那几条同理：
+/* 焦点环。这条规则**必须留在 @layer base 里**，与本文件的 utility 层叠关系直接相关：
    它声明了 Tailwind 也会声明的属性（`outline` 与 `border-radius`），留层外会
    压过 @layer utilities 的同属性工具类。实测（2026-11-04）：
    · 焦点态下带 `.rounded-[3px]` 的按钮圆角从 3px 变 2px；
@@ -124,7 +127,7 @@ body.nb-page {
 	 * 官方 fade 模式：is-animating 贯穿离场+替换+入场等待期（元素保持隐藏上移态）；
 	 * swup 完成导航移除全部动画类的瞬间，元素经基础 240ms ease-out 过渡回落
 	 * ——即「新页面自下方 8px 上浮淡入」。离场用更快 170ms ease-out（类覆盖）。
-	 * 节奏与 hero 换书动效（handoff §11 出170/入240）同族；reduced-motion 全局归零。
+	 * 节奏与 hero 换书动效同族；reduced-motion 全局归零。
 	 * 勿加 is-rendering 终态规则：swup 加 is-rendering 先于容器替换，新元素插入即
 	 * 终态会导致入场过渡无从发生（2026-09-06 实测）。 */
 .transition-swup-fade {
@@ -140,7 +143,7 @@ html.is-animating .transition-swup-fade {
     transform 0.17s var(--nb-ease-out);
 }
 
-/* ---------- Keyframes（handoff §11 动画参数）---------- */
+/* ---------- Keyframes（本文件定义的动画参数）---------- */
 
 /* 推荐卡片级联入场：translateY(8px)→0，240ms，delay=--d */
 @keyframes nb-card-in {
@@ -363,7 +366,7 @@ html.is-animating .transition-swup-fade {
   font-family: var(--nb-font-hand);
   font-size: 15.5px;
   line-height: 2;
-  color: #4a3f2c;
+  color: var(--nb-ink-warm);
 }
 .nb-excerpt-card cite {
   display: block;
@@ -371,7 +374,7 @@ html.is-animating .transition-swup-fade {
   font-family: var(--nb-font-sans);
   font-size: 13px;
   font-style: normal;
-  color: #655a4a;
+  color: var(--nb-ink-warm-soft);
   text-align: right;
 }
 
@@ -381,7 +384,7 @@ html.is-animating .transition-swup-fade {
   animation-delay: var(--d, 0ms);
 }
 
-/* 换一换按钮 loading：↻ 旋转 0.8s（handoff §11） */
+/* 换一换按钮 loading：↻ 旋转 0.8s */
 .nb-shuffle.is-loading .nb-shuffle-icon {
   animation: nb-spin 0.8s linear infinite;
 }
@@ -809,7 +812,7 @@ html.is-animating .transition-swup-fade {
   border-left: 1.5px solid var(--nb-border-strong);
 }
 
-/* ---------- 动效尊重系统偏好（handoff §11）---------- */
+/* ---------- 动效尊重系统偏好 ---------- */
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,

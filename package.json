@@ -15,7 +15,8 @@
 		"qa:nice-books-design": "node scripts/nice-books-design-qa.mjs",
 		"qa:nice-books-geometry": "node scripts/nice-books-geometry-qa.mjs",
 		"qa:nice-books-dev-swup": "node scripts/nice-books-dev-swup-qa.mjs",
-		"capture:nice-books-baseline": "node scripts/nice-books-capture-baseline.mjs"
+		"capture:nice-books-baseline": "node scripts/nice-books-capture-baseline.mjs",
+		"verify:pages-artifact": "node scripts/verify-pages-artifact.mjs"
 	},
 	"dependencies": {
 		"@astrojs/check": "0.9.12",

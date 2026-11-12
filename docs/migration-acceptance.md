@@ -46,6 +46,8 @@
 | `pnpm smoke:nice-books` | 通过，72/72 | 本地静态预览；包含真实 cover 图片加载失败后的同书确定性 SVG、书库失败重试、减少动态效果、忙碌/中断清理与 Swup 返回旅程。 |
 | `pnpm qa:nice-books-dev-swup` | 通过，4/4 | Astro dev `http://localhost:4324/nice-books/`；首页→书库→浏览器后退；页面背景/纹理/字体及页眉双线样式均持续生效，浏览器错误为 0。 |
 | `pnpm test:nice-books` / `pnpm check` | 通过，51/51；0 errors、0 warnings | Node 24.18.0；`astro check` 检查 50 个文件，有 4 条非阻断 hints。 |
+| 合并 T3 后 `pnpm build` | 通过，生成 73 个页面 | 包含首页、书库、70 个详情页与 `404.html`；构建日志 `output/nice-books-migration/t2/build-merged-final.log` 无 `SAFE_DELETE_*`。 |
+| 合并 T3 后 `pnpm verify:pages-artifact` | 通过 | 在联合构建的 `dist/` 上核对 70 个书籍路由、72 条 sitemap URL、1476 个同源 URL 引用与 107 个 CSS 引用；另确认 `404.html` 存在且其本站目标使用项目基路径。日志 `output/nice-books-migration/t2/pages-artifact-merged.log`。 |
 
 原设计 QA 中“博客根页不加载 Nice Books 资源”是博客归属边界，不要求独立项目启动源博客或依赖其磁盘路径；该边界转交 #159。独立项目仍检查实际 Nice Books 页面自身的资源与站内链接使用 `/nice-books/`，并检查页眉和页脚的“返回主站”均指向 `https://caiyan12.github.io/`。
 
@@ -59,7 +61,7 @@
 
 早期采样中，首页在不同 `nb-card-in` 动画时点截图，桌面与手机最大 rect 差分别为 2.520px 与 0.820px；书库、详情四组 rect 完全一致且截图 SHA 相同。此初始结果保留于 `output/nice-books-migration/t2/ab-comparison.md`。随后按相同成功的源站手写字体 CSS/WOFF 响应建立仅用于 A/B 的 fixture，并等待首页 intro/级联动画结束和多帧 rect 稳定后复采。稳定复采中两边随机状态相同，首页关键 rect 全部相同；桌面关键计算样式 12 项无差异，字体状态、正文/标题字体加载均相同。首页截图仍有有限像素差异：桌面 22,094/1,296,000 像素不同（最大通道差 55，平均 0.215729），手机 4,894/329,160 像素不同（最大通道差 75，平均 0.332844）。同构建源站在相同条件下重复采样自身也有 10,164/1,296,000 像素不同（最大通道差 13，平均 0.030779）；差异集中于主书文字栅格区域。故结论限于稳定几何、计算样式和字体加载状态一致，截图肉眼观感等效，不宣称 PNG 字节或像素相同。
 
-字体服务在自然请求中有环境波动：源站探针取得 ZeoSeven CSS HTTP 200（55,340 bytes，SHA-256 `5c5c289ae7e3938ecfc756be59db5e7b6edef070ee9f9b6d8a9116bd9f7e424c`）及 11 个 WOFF2 响应；独立目标相同 CSS 地址一次返回 HTTP 204，未注册手写字体面。为公平对照，已将源站成功响应仅在本机 A/B fixture 中重放给双方，产品 URL 与字体实现未改。fixture 详情、响应摘要、截图、几何及计算样式明细均在本地忽略目录 `output/nice-books-migration/t2/`，包括 `font-network-probe.log`、`home-stable-ab.log`、`home-style-ab.log`、`home-source-repeat.log` 与 PNG；它们不随仓库提交。
+自然加载探针记录到两次不同本地访问条件：源站使用 `http://localhost:4331/books/`，ZeoSeven CSS 返回 HTTP 200（55,340 bytes，SHA-256 `5c5c289ae7e3938ecfc756be59db5e7b6edef070ee9f9b6d8a9116bd9f7e424c`）并取得 11 个 WOFF2 响应；独立目标使用 `http://127.0.0.1:4323/nice-books/`，同一 CSS URL 一次返回 HTTP 204，未注册手写字体面。该差异的原因未确认，不归因于字体服务或迁移代码。为公平对照，已将源站成功响应仅在本机 A/B fixture 中重放给双方，产品 URL 与字体实现未改；线上自然加载留 #158 核验。fixture 详情、响应摘要、截图、几何及计算样式明细均在本地忽略目录 `output/nice-books-migration/t2/`，包括 `font-network-probe.log`、`home-stable-ab.log`、`home-style-ab.log`、`home-source-repeat.log` 与 PNG；它们不随仓库提交。
 
 设计 QA 的原博客根页隔离检查转交 #159；GitHub Pages 线上 404 行为由发布票后续验证。本节证明范围为本地独立构建与浏览器验收。
 

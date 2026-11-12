@@ -1,0 +1,36 @@
+{
+	"name": "nice-books",
+	"type": "module",
+	"version": "1.0.0",
+	"private": true,
+	"description": "Nice Books · 每日好书",
+	"scripts": {
+		"dev": "astro dev",
+		"check": "astro check",
+		"test:nice-books": "node --import ./scripts/test-hooks.mjs --test \"src/nice-books/**/*.test.ts\"",
+		"build": "pnpm test:nice-books && astro build",
+		"preview": "astro preview",
+		"smoke:nice-books": "node scripts/nice-books-smoke.mjs"
+	},
+	"dependencies": {
+		"@astrojs/check": "0.9.12",
+		"@astrojs/sitemap": "3.7.4",
+		"@fontsource-variable/jetbrains-mono": "5.3.0",
+		"@fontsource-variable/noto-sans-sc": "5.3.0",
+		"@swup/astro": "1.8.0",
+		"@tailwindcss/typography": "0.5.20",
+		"astro": "7.4.4",
+		"autoprefixer": "10.6.2",
+		"gsap": "3.15.0",
+		"postcss-nesting": "13.0.2",
+		"tailwindcss": "4.3.4"
+	},
+	"devDependencies": {
+		"@astrojs/ts-plugin": "1.10.12",
+		"@tailwindcss/vite": "4.3.4",
+		"@types/node": "24.13.3",
+		"playwright": "1.62.1",
+		"typescript": "5.9.3"
+	},
+	"packageManager": "pnpm@10.26.2"
+}

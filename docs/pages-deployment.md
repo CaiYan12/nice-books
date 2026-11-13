@@ -2,6 +2,8 @@
 
 独立站目标地址是 https://caiyan12.github.io/nice-books/。Astro 从 src/config.ts 读取站点地址与 /nice-books 基路径；astro.config.mjs 将它们用于静态页面和 sitemap。
 
+2026-11-13 首次发布的仓库、Actions、部署提交及公开访问证据见 [T4 发布记录](t4-acceptance.md)。后续部署继续按下列流程核对当前状态。
+
 ## 工作流
 
 .github/workflows/pages.yml 在 main 的 push、面向 main 的 pull request 和手动触发时运行：

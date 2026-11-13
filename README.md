@@ -68,3 +68,5 @@ pnpm capture:nice-books-baseline
 迁移验收进度和 T1 证据见 [`docs/migration-acceptance.md`](docs/migration-acceptance.md)。
 
 Pages 发布配置、建仓与首次部署操作见 [docs/pages-deployment.md](docs/pages-deployment.md)；T3 验收记录见 [docs/t3-acceptance.md](docs/t3-acceptance.md)。
+
+首次公开发布与访问证据见 [docs/t4-acceptance.md](docs/t4-acceptance.md)，项目接管入口见 [AGENTS.md](AGENTS.md) 与[项目记忆索引](.codex/memories/index.md)。
